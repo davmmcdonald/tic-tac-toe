@@ -40,7 +40,7 @@ const control = (() => {
 
     // Run through turn cycle when a empty cell is pressed
     cell.forEach(element => element.addEventListener('click', event => {
-        if (event.target.innerText === '' && gameover = false) {
+        if (event.target.innerText === '' && gameover === false) {
             gameBoard.setCell(event.target.getAttribute('data-index'), currentPlayer());
             event.target.innerText = currentPlayer();
             if (checkWin(gameBoard.getGrid(), currentPlayer())) {
