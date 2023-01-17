@@ -23,6 +23,7 @@ const control = (() => {
     const playerX = player('X');
     const playerO = player('O');
     let round = 0;
+    let gameover = false;
     const cell = document.querySelectorAll('.cell');
     const message = document.querySelector('.message');
     const resetBtn = document.querySelector('.reset');
@@ -39,17 +40,19 @@ const control = (() => {
 
     // Run through turn cycle when a empty cell is pressed
     cell.forEach(element => element.addEventListener('click', event => {
-        if (event.target.innerText === '') {
+        if (event.target.innerText === '' && gameover = false) {
             gameBoard.setCell(event.target.getAttribute('data-index'), currentPlayer());
             event.target.innerText = currentPlayer();
             if (checkWin(gameBoard.getGrid(), currentPlayer())) {
                 message.innerText = `Player ${currentPlayer()} wins!`;
+                gameover = true;
             } else {
                 round++;
                 if (round !== 9) {
                     message.innerText = `It's ${currentPlayer()}'s Turn`;
                 } else {
                     message.innerText = `It's a draw!`
+                    gameover = true;
                 }
             }
         }
@@ -60,6 +63,7 @@ const control = (() => {
         gameBoard.reset();
         cell.forEach(element => element.innerText = '');
         round = 0;
+        gameover = false;
         message.innerText = `It's ${currentPlayer()}'s Turn`;
     });
 
